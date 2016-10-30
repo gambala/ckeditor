@@ -20,13 +20,7 @@ CKEditor is a WYSIWYG text editor designed to simplify web content creation. It 
 For basic usage just include the ckeditor gem:
 
 ```
-gem 'ckeditor'
-```
-
-or if you'd like to use the latest version from Github:
-
-```
-gem 'ckeditor', github: 'galetahub/ckeditor'
+gem 'ckeditor', github: 'gambala/ckeditor'
 ```
 
 For file upload support, you must generate the necessary file storage models.
