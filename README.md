@@ -8,7 +8,7 @@ For a couple of years I have searched for ideal WYSIWYG editor. And finally I ch
 
 ## Features
 
-* Ckeditor version 4.5.11 (7 Sep 2016)
+* CKEditor version 4.6.1 full (08 Dec 2016)
 * Rails 5.0.x, 4.2.x integration
 * Files browser
 * HTML5 file uploader
