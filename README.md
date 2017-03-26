@@ -1,10 +1,10 @@
-# Ckeditor
+# Enhanced CKEditor for Rails
 
-[![Build Status](https://semaphoreci.com/api/v1/igor-galeta/ckeditor/branches/master/shields_badge.svg)](https://semaphoreci.com/igor-galeta/ckeditor)
-[![Code Climate](https://codeclimate.com/github/galetahub/ckeditor/badges/gpa.svg)](https://codeclimate.com/github/galetahub/ckeditor)
+## Disclaimer
 
-CKEditor is a WYSIWYG text editor designed to simplify web content creation. It brings common word processing features directly to your web pages. Enhance your website experience with our community maintained editor.
-[ckeditor.com](http://ckeditor.com/)
+This is [my](https://github.com/gambala) personal fork of [galetahub/ckeditor](https://github.com/galetahub/ckeditor) with some additional plugins, themes and enhancements.
+
+For a couple of years I have searched for ideal WYSIWYG editor. And finally I chose CKEditor with a bunch of plugins and handcrafted configs.
 
 ## Features
 
@@ -12,128 +12,48 @@ CKEditor is a WYSIWYG text editor designed to simplify web content creation. It 
 * Rails 5.0.x, 4.2.x integration
 * Files browser
 * HTML5 file uploader
-* Hooks for formtastic and simple_form forms generators
-* Integrated with authorization framework CanCan and Pundit
 
 ## Installation
 
-For basic usage just include the ckeditor gem:
-
-```
-gem 'ckeditor', github: 'gambala/ckeditor'
-```
-
-For file upload support, you must generate the necessary file storage models.
-The currently supported backends are:
-
-* ActiveRecord (paperclip, carrierwave, dragonfly, refile)
-* Mongoid (paperclip, carrierwave, dragonfly)
-
-### How to generate models to store uploaded files
-
-#### ActiveRecord + paperclip
-
-To use the active_record orm with paperclip (i.e. the default settings):
-
-```
-gem 'paperclip'
-
-rails generate ckeditor:install --orm=active_record --backend=paperclip
-```
-
-#### ActiveRecord + carrierwave
+1. Add gems into Gemfile:
 
 ```
 gem 'carrierwave'
+gem 'ckeditor', github: 'gambala/ckeditor'
 gem 'mini_magick'
+gem 'non-stupid-digest-assets'
+```
 
+2. Generate CKEditor configs, uploaders and models
+
+```
 rails generate ckeditor:install --orm=active_record --backend=carrierwave
 ```
 
-#### ActiveRecord + refile
+3. Create initializers
 
 ```
-gem 'refile', require: "refile/rails"
-gem 'refile-mini_magick'
+# config/initializers/non_digest_assets.rb
 
-rails generate ckeditor:install --orm=active_record --backend=refile
+NonStupidDigestAssets.whitelist += [/ckeditor\/.*/]
 ```
 
-#### ActiveRecord + dragonfly
-
-Requires Dragonfly 1.0 or greater.
-
-```
-gem 'dragonfly'
-
-rails generate ckeditor:install --orm=active_record --backend=dragonfly
-```
-
-#### Mongoid + paperclip
-
-```
-gem 'mongoid-paperclip', require: 'mongoid_paperclip'
-
-rails generate ckeditor:install --orm=mongoid --backend=paperclip
-```
-
-#### Mongoid + carrierwave
-
-```
-gem 'carrierwave-mongoid', require: 'carrierwave/mongoid'
-gem 'mini_magick'
-
-rails generate ckeditor:install --orm=mongoid --backend=carrierwave
-```
-
-#### Load generated models
-
-All ckeditor models will be generated in the app/models/ckeditor directory.
-Models are autoloaded in Rails 4. For earlier Rails versions, you need to add them to the autoload path (in application.rb):
+4. Mount Ckeditor::Engine in your routes (config/routes.rb):
 
 ```ruby
-config.autoload_paths += %w(#{config.root}/app/models/ckeditor)
+mount Ckeditor::Engine, at: '/ckeditor'
 ```
 
-Mount the Ckeditor::Engine in your routes (config/routes.rb):
-
-```ruby
-mount Ckeditor::Engine => '/ckeditor'
-```
-
-## Usage
-
-### Load editor from gem vendor
-
-Include ckeditor javascripts in your `app/assets/javascripts/application.js`:
+5. Include ckeditor javascripts in your `app/assets/javascripts/application.js`:
 
 ```
 //= require ckeditor/init
 ```
 
-### Load editor via CKEditor CDN
-
-Setup editor version to load (more info here http://cdn.ckeditor.com/)
+6. Precompile ckeditor/config.js:
 
 ```ruby
-# in config/initializers/ckeditor.rb
-
-Ckeditor.setup do |config|
-  # //cdn.ckeditor.com/<version.number>/<distribution>/ckeditor.js
-  config.cdn_url = "//cdn.ckeditor.com/4.5.11/standard/ckeditor.js"
-end
-```
-
-In view template include ckeditor CDN:
-
-```slim
-= javascript_include_tag Ckeditor.cdn_url
-```
-
-Precompile ckeditor/config.js:
-
-```ruby
-# in config/initializers/assets.rb
+# config/initializers/assets.rb
 
 Rails.application.config.assets.precompile += %w(ckeditor/config.js)
 ```
