@@ -50,7 +50,7 @@ Rails.application.config.assets.precompile += %w(
 4. Set ckeditor assets as non digest (in `config/initializers/non_digest_assets.rb`):
 
 ```
-NonStupidDigestAssets.whitelist += [/ckeditor\/.*/]
+NonStupidDigestAssets.whitelist += [%r{ckeditor/.*}]
 ```
 
 5. Add styles for `js-ckeditor` class, like these:
