@@ -47,13 +47,7 @@ For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
 	padding-right: 30px;
 
 	background: #cfd1cf;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#cfd1cf));
-	background-image: -moz-linear-gradient(top, #f5f5f5, #cfd1cf);
-	background-image: -webkit-linear-gradient(top, #f5f5f5, #cfd1cf);
-	background-image: -o-linear-gradient(top, #f5f5f5, #cfd1cf);
-	background-image: -ms-linear-gradient(top, #f5f5f5, #cfd1cf);
-	background-image: linear-gradient(top, #f5f5f5, #cfd1cf);
-	filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#f5f5f5', endColorstr='#cfd1cf');
+	background-image: linear-gradient(to bottom, #f5f5f5, #cfd1cf);
 }
 
 /* The close button at the top of the panel. */
